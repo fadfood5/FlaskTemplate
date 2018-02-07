@@ -16,22 +16,51 @@
      <!-- Custom styles for this template -->
      <link href="{{ url_for('static', filename='styles/style.css') }}" rel="stylesheet">
      <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
      <script src="{{ url_for('static', filename='js/script.js') }}"></script>
  </head>
  
  <body>
-    <link rel="import" href="{{ url_for('static', filename='navbar.html') }}">
-    <div class="row container">
-        <div class="col-md-4 offset-md-4">
-            <form class="form-signin" action="/signUp" method="post" role="form">
-                <h2 class="form-signin-heading">Login </h2>
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#">Title</a>
+        
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav mr-auto mt-2 mt-md-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div id='loginComponent' class="row">
+        <div class="col-md-4 offset-md-4 container">
+            <form class="form-signin" role="form">
+                <h2>Login </h2>
                 <input type="email" name="username" class="form-control" placeholder="Email address" required autofocus>
                 <input type="password" name="password" class="form-control" placeholder="Password" required>
-
-                <button class="btn btn-lg btn-primary btn-block" type="button">Register </button>
+                <button id="Login" class="btn btn-lg btn-primary btn-block" type="button">Login</button>
             </form>
         </div>
     </div>
+    <div id='homeComponent'>
+        <link rel="import" href="navbar.html">
+    </div>
+    <!-- <div class="row">
+        <div class="col-md-4 offset-md-4 container">
+            <form class="form-signin" action="/register" method="post" role="form">
+                <h2 class="form-signin-heading">Register </h2>
+                <input type="email" name="username" class="form-control" placeholder="Email address" required autofocus>
+                <input type="password" name="password" class="form-control" placeholder="Password" required>
+                <button id="Register" class="btn btn-lg btn-primary btn-block" type="button">Register</button>
+            </form>
+        </div>
+    </div> -->
  </body>
  
  </html>
