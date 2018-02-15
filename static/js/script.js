@@ -1,18 +1,22 @@
 $(document).ready(function(){
-    $('#Login').click(function() {
+    $('#homeComponent').hide();
+    $('#Login').on('click', function() {
         let user = $('#email').val();
         let pass = $('#pass').val();
-        console.log(user, pass)
         $.ajax({
             url: '/login',
             data: $('form').serialize(),
             type: 'POST',
             success: function(response) {
                 console.log(response);
-                if(response.auth == 1)
+                if(response.auth){
                     localStorage.setItem('userdata', response.user);
+                    console.log(localStorage.setItem('userdata'))
                     $('#loginComponent').hide();
                     $('#homeComponent').show();
+                }else{
+                    $('#errorMessage').text('Incorrect email and/or password.')
+                }
             },
             error: function(error) {
                 console.log(error);
