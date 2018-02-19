@@ -10,7 +10,6 @@ $(document).ready(function(){
             success: function(response) {
                 console.log(response);
                 if(response.auth === true){
-                    console.log("its true")
                     localStorage.setItem('userdata', response.user);
                     $('#loginComponent').hide();
                     $('#homeComponent').show();
