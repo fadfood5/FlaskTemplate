@@ -2,7 +2,7 @@ import os
 from os.path import join, dirname
 # from dotenv import load_dotenv
 import sqlite3 as sql
-from flask import Flask, request, Response, json, render_template
+from flask import Flask, request, Response, json, jsonify, render_template
 from flask_pymongo import PyMongo
 
 
@@ -38,14 +38,13 @@ def login():
     temp = cur.fetchone()
     print(temp)
     if email == temp["email"] and password == temp["password"]:
-        return json.dumps({
+        return jsonify({
             'auth': True,
             'user': email
         })
     else:
-        return json.dumps({
-            'auth': False,
-            'user': email
+        return jsonify({
+            'auth': False
         })
 
 #Post request method for /register

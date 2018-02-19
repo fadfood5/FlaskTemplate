@@ -9,9 +9,9 @@ $(document).ready(function(){
             type: 'POST',
             success: function(response) {
                 console.log(response);
-                if(response.auth){
+                if(response.auth === true){
+                    console.log("its true")
                     localStorage.setItem('userdata', response.user);
-                    console.log(localStorage.setItem('userdata'))
                     $('#loginComponent').hide();
                     $('#homeComponent').show();
                 }else{

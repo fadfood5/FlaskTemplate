@@ -1,3 +1,8 @@
 body{
     font-family: 'Lato', Arial, Helvetica, sans-serif;
 }
+@media (max-width: 767px) {
+    .navbar-toggleable-sm {
+      clear: both;
+    }
+  }
