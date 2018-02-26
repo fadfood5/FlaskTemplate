@@ -4,6 +4,7 @@ from os.path import join, dirname
 import sqlite3 as sql
 from flask import Flask, request, Response, json, jsonify, render_template
 from flask_pymongo import PyMongo
+import uuid
 
 
 #Environment Variables
@@ -18,6 +19,7 @@ app.config["DEBUG"] = True
 def hello():
     return render_template('/index.html')
 
+#Make SQL cursor return dictionary 
 def dict_factory(cursor, row):
     d = {}
     for idx, col in enumerate(cursor.description):
@@ -33,14 +35,18 @@ def login():
     con.row_factory = dict_factory
     cur = con.cursor()
     # cur.execute("CREATE TABLE users(id INT PRIMARY_KEY, firstName TEXT, lastName TEXT, email TEXT UNIQUE, password TEXT)")
-    cur.execute("INSERT INTO Users VALUES(1, 'Fadi', 'Bitar', 'fadi', '123')")
-    cur.execute("SELECT * FROM users WHERE email = 'fadi';")
+    cur.execute("SELECT * FROM users WHERE email=?", (email,))
     temp = cur.fetchone()
+    cur.close()
     print(temp)
     if email == temp["email"] and password == temp["password"]:
         return jsonify({
             'auth': True,
-            'user': email
+            'user': {
+                "email": email,
+                "firstName": temp["firstName"],
+                "lastName": temp["lastName"]
+                }
         })
     else:
         return jsonify({
@@ -50,11 +56,56 @@ def login():
 #Post request method for /register
 @app.route('/register', methods=['POST'])
 def register():
-    email =  request.form['email'];
-    password = request.form['password'];
+    email =  request.form['emailreg'];
+    password = request.form['passwordreg'];
+    passwordconf = request.form['passwordconfreg'];
+    con = sql.connect("temp.db", timeout=10)
+    con.row_factory = dict_factory
+    cur = con.cursor()
+    try:
+        cur.execute("SELECT * FROM users WHERE email = " + email + ";")
+        temp = cur.fetchone()
+        print(temp)
+    except:
+        print("User not found")
+    if password == passwordconf:
+        print("password confirmed")
+        uid = str(uuid.uuid4())
+        firstName = 'Fadi'
+        lastName = 'Bitar'
+        cur.execute("""INSERT INTO Users(id, firstName, lastName, email, password) VALUES (?,?,?,?,?);""", (uid, firstName, lastName, email, password))
+        con.commit()
+        cur.close()
+        con.close()
+        return jsonify({
+            'registered': True
+        })
+    # else:
+    #     print("wrong passwords")
+    #     return jsonify({
+    #         'registered': False,
+    #         'user': {
+    #                 "email": email
+    #                 }
+    #     })
+    # });
+
+if __name__ == "__main__":
+    app.run(port=5000)
+
+#Get request method for /home
+@app.route('/home', methods=['GET'])
+def home():
+    con = sql.connect("temp.db")
+    con.row_factory = dict_factory
+    cur = con.cursor()
+    # cur.execute("CREATE TABLE Events(id INT PRIMARY_KEY, eventName TEXT, eventTime TEXT, eventUrl TEXT)")
+    cur.execute("INSERT INTO Events(1, 'Event Name', 'Date', 'bullsync.com')")
+    cur.execute("SELECT * FROM Events;")
+    data = cur.fetchall()
+    cur.close()
     return json.dumps({
-        'registered': True,
-        'user': email,
+        'data': data,
     });
 
 if __name__ == "__main__":

@@ -37,32 +37,35 @@
           </div>
         </div>
       </nav>
-    <div id='loginComponent' class="row">
-        <div class="col-md-4 offset-md-4 container">
-            <form class="form-signin" role="form">
-                <h2>Login </h2>
-                <input type="email" name="email" class="form-control" placeholder="Email address" required autofocus>
-                <input type="password" name="password" class="form-control" placeholder="Password" required>
-                <span id='errorMessage'></span>
-                <button id="Login" class="btn btn-lg btn-primary btn-block" type="button">Login</button>
-            </form>
+    <div id='loginComponent' class="container">
+        <div class='row'>
+            <div id='loginDiv' class="col-md-6">
+                <form class="form-signin" id='formLogin' role="form">
+                    <h2>Login </h2>
+                    <input type="email" name="email" class="form-control" placeholder="Email address" required autofocus>
+                    <input type="password" name="password" class="form-control" placeholder="Password" required>
+                    <span id='errorMessageLogin'></span>
+                    <button id="Login" class="btn btn-lg btn-primary btn-block" type="button">Login</button>
+                </form>
+            </div>
+            <div id='registerDiv' class="col-md-6">
+                <form class="form-signin" id='formRegister' role="form">
+                    <h2>Register </h2>
+                    <input type="email" name="emailreg" class="form-control" placeholder="Email address" required autofocus>
+                    <input type="password" name="passwordreg" class="form-control" placeholder="Password" required>
+                    <input type="password" name="passwordconfreg" class="form-control" placeholder="Confirm Password" required>
+                    <span id='errorMessageReg'></span>
+                    <button id="Register" class="btn btn-lg btn-primary btn-block" type="button">Register</button>
+                </form>
+            </div>
         </div>
     </div>
     <div id='homeComponent'>
+        <script src="{{ url_for('static', filename='js/home.js') }}"></script>
         <div class="container">
-            <h1>Home</h1>
+            <h1 id="greeting">Welcome&nbsp;</h1>
         </div>
     </div>
-    <!-- <div class="row">
-        <div class="col-md-4 offset-md-4 container">
-            <form class="form-signin" action="/register" method="post" role="form">
-                <h2 class="form-signin-heading">Register </h2>
-                <input type="email" name="username" class="form-control" placeholder="Email address" required autofocus>
-                <input type="password" name="password" class="form-control" placeholder="Password" required>
-                <button id="Register" class="btn btn-lg btn-primary btn-block" type="button">Register</button>
-            </form>
-        </div>
-    </div> -->
  </body>
  
  </html>
