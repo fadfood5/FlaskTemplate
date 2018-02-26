@@ -93,19 +93,25 @@ def register():
 if __name__ == "__main__":
     app.run(port=5000)
 
-#Get request method for /home
-@app.route('/home', methods=['GET'])
+#Returns user's events
+@app.route('/getEvents', methods=['GET'])
 def home():
+    email =  request.json;
+    print(email)
     con = sql.connect("temp.db")
     con.row_factory = dict_factory
     cur = con.cursor()
-    # cur.execute("CREATE TABLE Events(id INT PRIMARY_KEY, eventName TEXT, eventTime TEXT, eventUrl TEXT)")
-    cur.execute("INSERT INTO Events(1, 'Event Name', 'Date', 'bullsync.com')")
-    cur.execute("SELECT * FROM Events;")
-    data = cur.fetchall()
+    # cur.execute("CREATE TABLE events(id INT PRIMARY_KEY, email TEXT, eventName TEXT, eventTime TEXT, eventUrl TEXT)")
+    uid = str(uuid.uuid4())
+    # cur.execute("""INSERT INTO events(id, userid, eventName, eventTime, eventUrl) VALUES(?,?,?,?)""",(uid, email, 'Event Name', 'Date', 'bullsync.com'))
+    # cur.execute("SELECT * FROM events WHERE email=?", (email,))
+    # data = cur.fetchall()
+    # print(data)
+    con.commit()
     cur.close()
-    return json.dumps({
-        'data': data,
+    con.close()
+    return jsonify({
+        'events': []
     });
 
 if __name__ == "__main__":

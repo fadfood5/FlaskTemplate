@@ -63,7 +63,22 @@
     <div id='homeComponent'>
         <script src="{{ url_for('static', filename='js/home.js') }}"></script>
         <div class="container">
-            <h1 id="greeting">Welcome&nbsp;</h1>
+            <div class="row">
+                <h1 id="greeting">Welcome&nbsp;</h1>
+            </div>
+            <div class="row">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Link</th>
+                        </tr>
+                    </thead>
+                    <tbody id='eventTableBody'>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
  </body>

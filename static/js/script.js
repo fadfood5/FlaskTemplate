@@ -47,17 +47,22 @@ $(document).ready(function(){
         console.log(user)
         $('#greeting').append(user.firstName)
     }
+
     function getTable(){
         console.log(localStorage.getItem('userdata'));
         $.ajax({
-            url: '/home',
+            url: '/getEvents',
             data: {
-                user: localStorage.getItem('userdata')
+                user: localStorage.getItem('userdata').email,
+                temp: 123
             },
             type: 'GET',
             success: function(response) {
-                console.log("EVENTS")
                 console.log(response);
+                localStorage.getItem('userevents', JSON.stringify(response.events))
+                response.events.forEach(function(val){
+                    $('#eventTableBody').append("<tr><td>" + val.eventName + "</td><td>" + val.eventTime + "</td><td>" + val.eventUrl + "</td></tr>")
+                })
             },
             error: function(error) {
                 console.log(error);
