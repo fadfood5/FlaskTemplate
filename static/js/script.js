@@ -49,24 +49,31 @@ $(document).ready(function(){
     }
 
     function getTable(){
-        console.log(localStorage.getItem('userdata'));
-        $.ajax({
-            url: '/getEvents',
-            data: {
-                user: localStorage.getItem('userdata').email,
-                temp: 123
-            },
-            type: 'GET',
-            success: function(response) {
-                console.log(response);
-                localStorage.getItem('userevents', JSON.stringify(response.events))
-                response.events.forEach(function(val){
-                    $('#eventTableBody').append("<tr><td>" + val.eventName + "</td><td>" + val.eventTime + "</td><td>" + val.eventUrl + "</td></tr>")
-                })
-            },
-            error: function(error) {
-                console.log(error);
-            }
-        });
+        tempuser = localStorage.getItem('userdata');
+        let parseduser;
+        if (tempuser) {
+            parseduser = JSON.parse(tempuser);
+            let email = parseduser.email;
+            console.log(email)
+            $.ajax({
+                url: '/getEvents',
+                data: {
+                    temp: email
+                },
+                contentType: 'application/json',
+                dataType: 'json',
+                type: 'GET',
+                success: function(response) {
+                    console.log(response);
+                    localStorage.setItem('userevents', JSON.stringify(response.events))
+                    response.events.forEach(function(val){
+                        $('#eventTableBody').append("<tr><td>" + val.eventName + "</td><td>" + val.eventTime + "</td><td>" + val.eventUrl + "</td></tr>")
+                    })
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        }
     }
 });

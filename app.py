@@ -14,6 +14,10 @@ import uuid
 app = Flask(__name__, template_folder='static')
 app.config["DEBUG"] = True
 
+
+if __name__ == "__main__":
+    app.run(port=3000)
+
 #Route for /
 @app.route("/")
 def hello():
@@ -90,29 +94,26 @@ def register():
     #     })
     # });
 
-if __name__ == "__main__":
-    app.run(port=5000)
-
 #Returns user's events
 @app.route('/getEvents', methods=['GET'])
 def home():
-    email =  request.json;
+    #Print json from get request
+    print(request.args)
+    #Save the email to a variable
+    email =  request.args.get("temp");
     print(email)
     con = sql.connect("temp.db")
     con.row_factory = dict_factory
     cur = con.cursor()
-    # cur.execute("CREATE TABLE events(id INT PRIMARY_KEY, email TEXT, eventName TEXT, eventTime TEXT, eventUrl TEXT)")
+    # cur.execute("CREATE TABLE event(id INT PRIMARY_KEY, email TEXT, eventName TEXT, eventTime TEXT, eventUrl TEXT)")
     uid = str(uuid.uuid4())
-    # cur.execute("""INSERT INTO events(id, userid, eventName, eventTime, eventUrl) VALUES(?,?,?,?)""",(uid, email, 'Event Name', 'Date', 'bullsync.com'))
-    # cur.execute("SELECT * FROM events WHERE email=?", (email,))
-    # data = cur.fetchall()
-    # print(data)
+    # cur.execute("""INSERT INTO event(id, email, eventName, eventTime, eventUrl) VALUES(?,?,?,?,?)""",(uid, email, 'Event Name', 'Date', 'bullsync.com'))
+    cur.execute("SELECT * FROM event WHERE email=?", (email,))
+    eventdata = cur.fetchall()
+    print(eventdata)
     con.commit()
     cur.close()
     con.close()
     return jsonify({
-        'events': []
+        'events': eventdata
     });
-
-if __name__ == "__main__":
-    app.run(port=5000)
