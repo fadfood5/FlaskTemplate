@@ -3,7 +3,6 @@ from os.path import join, dirname
 # from dotenv import load_dotenv
 import sqlite3 as sql
 from flask import Flask, request, Response, json, jsonify, render_template
-from flask_pymongo import PyMongo
 import uuid
 
 
