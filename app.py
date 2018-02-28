@@ -48,7 +48,7 @@ def login():
                 "email": email,
                 "firstName": temp["firstName"],
                 "lastName": temp["lastName"]
-                }
+            }
         })
     else:
         return jsonify({
@@ -99,7 +99,7 @@ def home():
     # cur.execute("CREATE TABLE event(id INT PRIMARY_KEY, email TEXT, eventName TEXT, eventTime TEXT, eventUrl TEXT)")
     uid = str(uuid.uuid4())
     # Uncomment to make a test Event
-    # cur.execute("""INSERT INTO event(id, email, eventName, eventTime, eventUrl) VALUES(?,?,?,?,?)""",(uid, email, 'Event Name', 'Date', 'bullsync.com'))
+    # cur.execute("""INSERT INTO event(id, email, eventName, eventTime, eventUrl) VALUES(?,?,?,?,?)""",(uid, email, 'Event Name 3', 'Date 3', 'bullsync3.com'))
     cur.execute("SELECT * FROM event WHERE email=?", (email,))
     eventdata = cur.fetchall()
     print(eventdata)

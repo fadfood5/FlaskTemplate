@@ -41,6 +41,19 @@ $(document).ready(function(){
             }
         });
     });
+    // $('#EventSubmit').on('click', function() {
+    //     $.ajax({
+    //         url: '/newEvent',
+    //         data: $('#newEventForm').serialize(),
+    //         type: 'POST',
+    //         success: function(response) {
+    //             console.log(response);
+    //         },
+    //         error: function(error) {
+    //             console.log(error);
+    //         }
+    //     });
+    // });
 
     function populateUser(){
         let user = JSON.parse(localStorage.getItem('userdata'));
