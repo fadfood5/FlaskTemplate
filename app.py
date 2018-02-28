@@ -38,7 +38,6 @@ def login():
     con = sql.connect("temp.db")
     con.row_factory = dict_factory
     cur = con.cursor()
-    # cur.execute("CREATE TABLE users(id INT PRIMARY_KEY, firstName TEXT, lastName TEXT, email TEXT UNIQUE, password TEXT)")
     cur.execute("SELECT * FROM users WHERE email=?", (email,))
     temp = cur.fetchone()
     cur.close()
@@ -66,6 +65,8 @@ def register():
     con = sql.connect("temp.db", timeout=10)
     con.row_factory = dict_factory
     cur = con.cursor()
+    # Uncomment the following line to create the table then comment it again after the first registration
+    # cur.execute("CREATE TABLE users(id INT PRIMARY_KEY, firstName TEXT, lastName TEXT, email TEXT UNIQUE, password TEXT)")
     try:
         cur.execute("SELECT * FROM users WHERE email = " + email + ";")
         temp = cur.fetchone()
@@ -73,7 +74,6 @@ def register():
     except:
         print("User not found")
     if password == passwordconf:
-        print("password confirmed")
         uid = str(uuid.uuid4())
         firstName = 'Fadi'
         lastName = 'Bitar'
@@ -84,15 +84,6 @@ def register():
         return jsonify({
             'registered': True
         })
-    # else:
-    #     print("wrong passwords")
-    #     return jsonify({
-    #         'registered': False,
-    #         'user': {
-    #                 "email": email
-    #                 }
-    #     })
-    # });
 
 #Returns user's events
 @app.route('/getEvents', methods=['GET'])
@@ -105,8 +96,10 @@ def home():
     con = sql.connect("temp.db")
     con.row_factory = dict_factory
     cur = con.cursor()
+    # Uncomment the following line to create the table then comment it again after the first registration
     # cur.execute("CREATE TABLE event(id INT PRIMARY_KEY, email TEXT, eventName TEXT, eventTime TEXT, eventUrl TEXT)")
     uid = str(uuid.uuid4())
+    # Uncomment to make a test Event
     # cur.execute("""INSERT INTO event(id, email, eventName, eventTime, eventUrl) VALUES(?,?,?,?,?)""",(uid, email, 'Event Name', 'Date', 'bullsync.com'))
     cur.execute("SELECT * FROM event WHERE email=?", (email,))
     eventdata = cur.fetchall()
