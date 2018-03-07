@@ -116,8 +116,6 @@ def newEvent():
     eventName =  request.form['eventName'];
     eventTime = request.form['eventTime'];
     eventUrl = request.form['eventUrl'];
-    print("submiting")
-    print(email, eventName, eventUrl, eventTime)
     con = sql.connect("temp.db", timeout=10)
     con.row_factory = dict_factory
     cur = con.cursor()
@@ -128,8 +126,6 @@ def newEvent():
     con.commit()
     cur.close()
     con.close()
-    print('test')
-    print('test2')
     return jsonify({
         'newEventStatus': True
     })
