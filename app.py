@@ -126,6 +126,7 @@ def newEvent():
     con.commit()
     cur.close()
     con.close()
+    print('test')
     return jsonify({
         'newEventStatus': True
     })
