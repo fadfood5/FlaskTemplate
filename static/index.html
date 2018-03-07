@@ -42,8 +42,8 @@
             <div id='loginDiv' class="col-md-6">
                 <form class="form-signin" id='formLogin' role="form">
                     <h2>Login </h2>
-                    <input type="email" name="email" class="form-control" placeholder="Email address" required autofocus value="">
-                    <input type="password" name="password" class="form-control" placeholder="Password" required value="">
+                    <input type="email" name="email" class="form-control" placeholder="Email address" required autofocus value="fadu2">
+                    <input type="password" name="password" class="form-control" placeholder="Password" required value="123">
                     <span id='errorMessageLogin'></span>
                     <button id="Login" class="btn btn-lg btn-primary btn-block" type="button">Login</button>
                 </form>
@@ -86,13 +86,22 @@
                 </table>
             </div>
 
-            <!-- <div class='row'>
+            <!-- <div class="row">
+                <div class="col-md-2 offset-md-5">
+                    <button id="PopulateTable" class="btn btn-primary btn-block" type="button">Populate Table</button>
+                </div>
+            </div>
+            
+            <hr width="100%">
+
+            <div class='row'>
                 <div id='newEventDiv' class="col-md-8 offset-md-2">
                     <form class="form-signin" id='newEventForm' role="form">
-                        <h2>New Event Form </h2>
-                        <input type="text" name="eventName" class="form-control" placeholder="Event Name" required autofocus value="">
-                        <input type="text" name="eventTime" class="form-control" placeholder="Event Time" required value="">
-                        <input type="text" name="eventUrl" class="form-control" placeholder="Event URL" required value="">
+                        <h2>New Event</h2>
+                        <input type="text" name="eventName" id="eventName" class="form-control" placeholder="Event Name" required autofocus value="">
+                        <input type="text" name="eventTime" id="eventTime" class="form-control" placeholder="Event Time" required value="">
+                        <input type="text" name="eventUrl" id="eventUrl" class="form-control" placeholder="Event URL" required value="">
+                        <span id='errorMessageNewEvent'></span>
                         <button id="EventSubmit" class="btn btn-lg btn-primary btn-block" type="button">Submit Event</button>
                     </form>
                 </div>

@@ -54,6 +54,38 @@ $(document).ready(function(){
     //         }
     //     });
     // });
+    
+    // $('#PopulateTable').on('click', function() {
+    //     getTable();
+    // });
+
+    // $('#EventSubmit').on('click', function() {
+    //     let user = JSON.parse(localStorage.getItem('userdata'));
+    //     let tempForm = {
+    //         email: user.email,
+    //         eventName: $('#eventName').val(),
+    //         eventTime: $('#eventTime').val(),
+    //         eventUrl: $('#eventUrl').val()
+    //     };
+    //     console.log(tempForm)
+    //     $.ajax({
+    //         url: '/newEvent',
+    //         data: tempForm,
+    //         type: 'POST',
+    //         success: function(response) {
+    //             console.log(response);
+    //             if(response.newEventStatus === true){
+    //                 console.log('Event submit successful')
+    //                 $('#errorMessageNewEvent').text('Success!')
+    //             }else{
+    //                 $('#errorMessageNewEvent').text('Event submittal failed. Try again.')
+    //             }
+    //         },
+    //         error: function(error) {
+    //             console.log(error);
+    //         }
+    //     });
+    // });
 
     function populateUser(){
         let user = JSON.parse(localStorage.getItem('userdata'));
@@ -78,6 +110,7 @@ $(document).ready(function(){
                 type: 'GET',
                 success: function(response) {
                     console.log(response);
+                    $('#PopulateTable').hide();
                     localStorage.setItem('userevents', JSON.stringify(response.events))
                     response.events.forEach(function(val){
                         $('#eventTableBody').append("<tr><td>" + val.eventName + "</td><td>" + val.eventTime + "</td><td>" + val.eventUrl + "</td></tr>")

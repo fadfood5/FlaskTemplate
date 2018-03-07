@@ -109,3 +109,25 @@ def home():
     return jsonify({
         'events': eventdata
     });
+
+@app.route('/newEvent', methods=['POST'])
+def newEvent():
+    email = request.form['email']
+    eventName =  request.form['eventName'];
+    eventTime = request.form['eventTime'];
+    eventUrl = request.form['eventUrl'];
+    print("submiting")
+    print(email, eventName, eventUrl, eventTime)
+    con = sql.connect("temp.db", timeout=10)
+    con.row_factory = dict_factory
+    cur = con.cursor()
+    # Uncomment the following line to create the table then comment it again after the first registration
+    # cur.execute("CREATE TABLE users(id INT PRIMARY_KEY, firstName TEXT, lastName TEXT, email TEXT UNIQUE, password TEXT)")
+    uid = str(uuid.uuid4())
+    cur.execute("""INSERT INTO event(id, email, eventName, eventTime, eventUrl) VALUES (?,?,?,?,?);""", (uid, email, eventName, eventTime, eventUrl))
+    con.commit()
+    cur.close()
+    con.close()
+    return jsonify({
+        'newEventStatus': True
+    })
