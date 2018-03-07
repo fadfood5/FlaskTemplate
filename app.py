@@ -129,6 +129,7 @@ def newEvent():
     con.close()
     print('test')
     print('test 2')
+    print('3')
     return jsonify({
         'newEventStatus': True
     })
