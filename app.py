@@ -20,6 +20,7 @@ if __name__ == "__main__":
 #Route for /
 @app.route("/")
 def hello():
+    print('Client landed on website')
     return render_template('/index.html')
 
 #Make SQL cursor return dictionary 
