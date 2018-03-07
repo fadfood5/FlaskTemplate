@@ -120,7 +120,7 @@ def newEvent():
     con.row_factory = dict_factory
     cur = con.cursor()
     # Uncomment the following line to create the table then comment it again after the first registration
-    # cur.execute("CREATE TABLE users(id INT PRIMARY_KEY, firstName TEXT, lastName TEXT, email TEXT UNIQUE, password TEXT)")
+    # cur.execute("CREATE TABLE event(id INT PRIMARY_KEY, email TEXT, eventName TEXT, eventTime TEXT, eventUrl TEXT)")
     uid = str(uuid.uuid4())
     cur.execute("""INSERT INTO event(id, email, eventName, eventTime, eventUrl) VALUES (?,?,?,?,?);""", (uid, email, eventName, eventTime, eventUrl))
     con.commit()
