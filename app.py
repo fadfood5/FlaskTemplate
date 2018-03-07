@@ -15,12 +15,11 @@ app.config["DEBUG"] = True
 
 
 if __name__ == "__main__":
-    app.run(port=3000)
+    app.run(port=5000)
 
 #Route for /
 @app.route("/")
 def hello():
-    print('Client landed on website')
     return render_template('/index.html')
 
 #Make SQL cursor return dictionary 
@@ -127,9 +126,6 @@ def newEvent():
     con.commit()
     cur.close()
     con.close()
-    print('test')
-    print('test 2')
-    print('3')
     return jsonify({
         'newEventStatus': True
     })
